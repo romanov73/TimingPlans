@@ -1,0 +1,1 @@
+//check smarty writeable dir
