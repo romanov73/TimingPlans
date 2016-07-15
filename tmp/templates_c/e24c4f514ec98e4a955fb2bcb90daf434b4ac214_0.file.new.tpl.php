@@ -1,28 +1,32 @@
 <?php
-/* Smarty version 3.1.29, created on 2016-07-14 06:15:38
+/* Smarty version 3.1.29, created on 2016-07-15 23:20:09
   from "/var/www/TimingPlans/templates/new.tpl" */
 
 if ($_smarty_tpl->smarty->ext->_validateCompiled->decodeProperties($_smarty_tpl, array (
   'has_nocache_code' => false,
   'version' => '3.1.29',
-  'unifunc' => 'content_5786e7ba315e30_58966355',
+  'unifunc' => 'content_5789295947d004_53943201',
   'file_dependency' => 
   array (
     'e24c4f514ec98e4a955fb2bcb90daf434b4ac214' => 
     array (
       0 => '/var/www/TimingPlans/templates/new.tpl',
-      1 => 1468458936,
+      1 => 1468605443,
       2 => 'file',
     ),
   ),
   'includes' => 
   array (
     'file:header.tpl' => 1,
+    'file:menu.tpl' => 1,
     'file:footer.tpl' => 1,
   ),
 ),false)) {
-function content_5786e7ba315e30_58966355 ($_smarty_tpl) {
+function content_5789295947d004_53943201 ($_smarty_tpl) {
 $_smarty_tpl->smarty->ext->_subtemplate->render($_smarty_tpl, "file:header.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
+?>
+
+<?php $_smarty_tpl->smarty->ext->_subtemplate->render($_smarty_tpl, "file:menu.tpl", $_smarty_tpl->cache_id, $_smarty_tpl->compile_id, 0, $_smarty_tpl->cache_lifetime, array(), 0, false);
 ?>
 
 
@@ -213,8 +217,8 @@ $_smarty_tpl->tpl_vars['__smarty_section_week'] = $__section_week_1_saved;
                     </tr>
                     <tr>
                         <td><textarea id="lection_audit" ></textarea></td>
-                        <td colspan="9" style="text-align:center;"><input type="text" id="teacher_lect1" width="100%"></td>
-                        <td colspan="10" style="text-align:center;"><input type="text" id="teacher_lect2" width="100%"></td>
+                        <td colspan="9" style="text-align:center;"><textarea id="teacher_lect1" width="100%"></textarea></td>
+                        <td colspan="10" style="text-align:center;"><textarea id="teacher_lect2" width="100%"></textarea></td>
                     </tr>
                     <tr class="tr-input-hour">
                         <td rowspan="2"><strong>2. Практ. занятия, семинары</strong></td>
@@ -238,8 +242,8 @@ $_smarty_tpl->tpl_vars['__smarty_section_week'] = $__section_week_2_saved;
                     </tr>
                     <tr>
                         <td><textarea id="lection_audit" ></textarea></td>
-                        <td colspan="9" style="text-align:center;"><input type="text" id="teacher_prac1" width="100%"></td>
-                        <td colspan="10" style="text-align:center;"><input type="text" id="teacher_prac2" width="100%"></td>
+                        <td colspan="9" style="text-align:center;"><textarea id="teacher_prac1" width="100%"></textarea></td>
+                        <td colspan="10" style="text-align:center;"><textarea id="teacher_prac2" width="100%"></textarea></td>
                     </tr>
                     <tr class="tr-input-hour">
                         <td rowspan="2"><strong>3. Лабораторные занятия</strong></td>
@@ -263,8 +267,8 @@ $_smarty_tpl->tpl_vars['__smarty_section_week'] = $__section_week_3_saved;
                     </tr>
                     <tr>
                         <td><textarea id="lection_audit" ></textarea></td>
-                        <td colspan="9" style="text-align:center;"><input type="text" id="teacher_lab1" width="100%"></td>
-                        <td colspan="10" style="text-align:center;"><input type="text" id="teacher_lab2" width="100%"></td>
+                        <td colspan="9" style="text-align:center;"><textarea id="teacher_lab1" width="100%"></textarea></td>
+                        <td colspan="10" style="text-align:center;"><textarea id="teacher_lab2" width="100%"></textarea></td>
                     </tr>
                     <tr>
                         <td><strong>Всего:</strong></td>

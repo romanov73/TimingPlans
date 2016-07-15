@@ -1,4 +1,5 @@
 {include file="header.tpl"}
+{include file="menu.tpl"}
 
 <script>
 function isNumberInput(field, event){
@@ -142,8 +143,8 @@ function sumHour() {
                     </tr>
                     <tr>
                         <td><textarea id="lection_audit" ></textarea></td>
-                        <td colspan="9" style="text-align:center;"><input type="text" id="teacher_lect1" width="100%"></td>
-                        <td colspan="10" style="text-align:center;"><input type="text" id="teacher_lect2" width="100%"></td>
+                        <td colspan="9" style="text-align:center;"><textarea id="teacher_lect1" width="100%"></textarea></td>
+                        <td colspan="10" style="text-align:center;"><textarea id="teacher_lect2" width="100%"></textarea></td>
                     </tr>
                     <tr class="tr-input-hour">
                         <td rowspan="2"><strong>2. Практ. занятия, семинары</strong></td>
@@ -155,8 +156,8 @@ function sumHour() {
                     </tr>
                     <tr>
                         <td><textarea id="lection_audit" ></textarea></td>
-                        <td colspan="9" style="text-align:center;"><input type="text" id="teacher_prac1" width="100%"></td>
-                        <td colspan="10" style="text-align:center;"><input type="text" id="teacher_prac2" width="100%"></td>
+                        <td colspan="9" style="text-align:center;"><textarea id="teacher_prac1" width="100%"></textarea></td>
+                        <td colspan="10" style="text-align:center;"><textarea id="teacher_prac2" width="100%"></textarea></td>
                     </tr>
                     <tr class="tr-input-hour">
                         <td rowspan="2"><strong>3. Лабораторные занятия</strong></td>
@@ -168,8 +169,8 @@ function sumHour() {
                     </tr>
                     <tr>
                         <td><textarea id="lection_audit" ></textarea></td>
-                        <td colspan="9" style="text-align:center;"><input type="text" id="teacher_lab1" width="100%"></td>
-                        <td colspan="10" style="text-align:center;"><input type="text" id="teacher_lab2" width="100%"></td>
+                        <td colspan="9" style="text-align:center;"><textarea id="teacher_lab1" width="100%"></textarea></td>
+                        <td colspan="10" style="text-align:center;"><textarea id="teacher_lab2" width="100%"></textarea></td>
                     </tr>
                     <tr>
                         <td><strong>Всего:</strong></td>

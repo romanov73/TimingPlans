@@ -55,7 +55,7 @@ class MyDB extends _MyDB { // PostgreSQL
     {
         $connect_string = "host=$host user=$user password=$passwd dbname=$dbname port=5432";
         return pg_connect($connect_string);
-    }
+        }
     ///////////////////////////////////////////////////////////////////////////////
     protected function __select_schema($schema, $link)
     {
@@ -96,7 +96,7 @@ return $result;
     ///////////////////////////////////////////////////////////////////////////////
     public function __error($link = null)
     {
-        return pg_last_error($link);
+            return pg_last_error($link);
     }
     ///////////////////////////////////////////////////////////////////////////////
     protected function __free_result(&$res)

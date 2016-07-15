@@ -1,4 +1,5 @@
 {include file="header.tpl"}
+{include file="menu.tpl"}
 
 <div class="tab-content">
     <div id="panel1" class="tab-pane fade in active">

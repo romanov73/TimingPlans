@@ -12,12 +12,6 @@
         <script src="libs/bootstrap-select.min.js"></script>
         
 <div class="panel panel-default" style="width:90%; margin-left: auto; margin-right: auto;">
-  <div class="panel-heading">Ввод расчасовок</div>
+  <div class="panel-heading">{$page_title}</div>
   <div class="panel-body">
-    
-<ul class="nav nav-tabs">
-  <li id="li1" role="presentation" class="active"><a href="index.php">Ввод новой</a></li>
-  <li id="li2" role="presentation"><a href="?completed=1">Готовые</a></li>
-</ul>
-
-      
+ 
