@@ -1,3 +1,3 @@
 nbproject
-tmp/*.*
-tmp/template_c/*.*
+/tmp/*.*
+/tmp/template_c/*
