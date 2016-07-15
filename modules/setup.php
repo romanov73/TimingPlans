@@ -110,6 +110,15 @@
         $db->query($sql_check);
     }
     
+    function checkSmartyDirectoryWritable() {
+        $newFileName = SMARTY_COMPILE_DIR.'file.txt';
+        if ( ! is_writable(dirname($newFileName))) {
+            echo dirname($newFileName) . ' must exist and be writable!!!';
+        } else {
+           // blah blah blah
+        }
+    }
+    
     if ($_GET['clear_db']) {
         clearDB($db);
         ob_clean();
@@ -145,6 +154,7 @@
 
     $smarty->assign('page_title', 'Установка');
     
+    checkSmartyDirectoryWritable();
     checkDBConfigured($db, $smarty);
     checkDBConnectSuccessfull($db, $smarty);
     

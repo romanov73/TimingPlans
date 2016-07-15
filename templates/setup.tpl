@@ -44,17 +44,6 @@
 </div>
 
 <div class="panel panel-default" style="width:100%; margin-left: auto; margin-right: auto;">
-  <div class="panel-heading">Smarty</div>
-    <div class="panel-body">
-        <div class="row" style="margin-top:20px;">
-            <div class="col-md-12">
-                
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="panel panel-default" style="width:100%; margin-left: auto; margin-right: auto;">
   <div class="panel-heading">Тестовые данные</div>
     <div class="panel-body">
         <div class="row" style="margin-top:20px;">
