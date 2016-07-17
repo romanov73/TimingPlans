@@ -13,4 +13,4 @@ define("DB_SYSTEM_DBNAME", "timing_plans");        // DB name
 define("SMARTY_DIR",  "libs/smarty/libs/");              // path to smarty 
 define("SMARTY_TEMPLATE_DIR",  "templates/");      // smarty compiled tempaltes
 define("SMARTY_COMPILE_DIR",  "tmp/templates_c/");      // smarty compiled tempaltes
-define("DEBUG",  false);
+define("DEBUG",  true);

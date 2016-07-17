@@ -88,7 +88,7 @@ function sumHour() {
                         <h5>Преподаватель:</h5>
                     </div>
                     <div class="col-md-3">
-                        <select id="teacher_select" class="selectpicker" data-live-search="true" >
+                        <select id="teacher_select" class="selectpicker glowing-border" data-live-search="true" >
                             {foreach from=$teacher_list item=teacher}
                                 <option value='{$teacher->id}'>{$teacher->FIO}</option>
                             {/foreach}
@@ -103,7 +103,16 @@ function sumHour() {
                     </div>
                     <div class="col-md-3">
                         <select id="subject_select" class="selectpicker" data-live-search="true" >
+                            {foreach from=$subject_list item=subject}
+                                <option value='{$subject->id}'>{$subject->name}</option>
+                            {/foreach}
                         </select>
+                            {foreach from=$subject_list item=subject}
+                                <div style="display:none;" id='subject_lect_hours_{$subject->id}'>{$subject->lection_hours}</div>
+                                <div style="display:none;" id='subject_pract_hours_{$subject->id}'>{$subject->practic_hours}</div>
+                                <div style="display:none;" id='subject_lab_hours_{$subject->id}'>{$subject->labs_hours}</div>
+                                <div style="display:none;" id='subject_validation_{$subject->id}'>{$subject->validation}</div>
+                            {/foreach}
                     </div>
                 </div>
             </div>
@@ -115,7 +124,13 @@ function sumHour() {
                     </div>
                     <div class="col-md-3">
                         <select id="group_select" class="selectpicker" data-live-search="true" >
+                            {foreach from=$group_list item=group}
+                                <option value='{$group->id}'>{$group->name}</option>
+                            {/foreach}
                         </select>
+                            {foreach from=$group_list item=group}
+                                <div style="display:none;" id='group_subgroups_{$group->id}'>{$group->count_subgroups}</div>
+                            {/foreach}
                     </div>
                 </div>
             </div>
@@ -139,12 +154,12 @@ function sumHour() {
                                 <td class="td-input-hour"><input type="text" class="input-hour lect week{$smarty.section.week.iteration}" onkeypress="return isNumberInput(this, event);" onchange="sumForm();"></td>
                             {/section}
                         <td class="td-center" id="itog_lect">&nbsp;</td>
-                        <td rowspan="6">&nbsp;</td>
+                        <td rowspan="6" id="validation">&nbsp;</td>
                     </tr>
                     <tr>
                         <td><textarea id="lection_audit" ></textarea></td>
-                        <td colspan="9" style="text-align:center;"><textarea id="teacher_lect1" width="100%"></textarea></td>
-                        <td colspan="10" style="text-align:center;"><textarea id="teacher_lect2" width="100%"></textarea></td>
+                        <td colspan="9" style="text-align:center;"><textarea id="teacher_lect1" style="width:100%"></textarea></td>
+                        <td colspan="10" style="text-align:center;"><textarea id="teacher_lect2" style="width:100%"></textarea></td>
                     </tr>
                     <tr class="tr-input-hour">
                         <td rowspan="2"><strong>2. Практ. занятия, семинары</strong></td>
@@ -156,8 +171,8 @@ function sumHour() {
                     </tr>
                     <tr>
                         <td><textarea id="lection_audit" ></textarea></td>
-                        <td colspan="9" style="text-align:center;"><textarea id="teacher_prac1" width="100%"></textarea></td>
-                        <td colspan="10" style="text-align:center;"><textarea id="teacher_prac2" width="100%"></textarea></td>
+                        <td colspan="9" style="text-align:center;"><textarea id="teacher_prac1" style="width:100%"></textarea></td>
+                        <td colspan="10" style="text-align:center;"><textarea id="teacher_prac2" style="width:100%"></textarea></td>
                     </tr>
                     <tr class="tr-input-hour">
                         <td rowspan="2"><strong>3. Лабораторные занятия</strong></td>
@@ -169,8 +184,8 @@ function sumHour() {
                     </tr>
                     <tr>
                         <td><textarea id="lection_audit" ></textarea></td>
-                        <td colspan="9" style="text-align:center;"><textarea id="teacher_lab1" width="100%"></textarea></td>
-                        <td colspan="10" style="text-align:center;"><textarea id="teacher_lab2" width="100%"></textarea></td>
+                        <td colspan="9" style="text-align:center;"><textarea id="teacher_lab1" style="width:100%"></textarea></td>
+                        <td colspan="10" style="text-align:center;"><textarea id="teacher_lab2" style="width:100%"></textarea></td>
                     </tr>
                     <tr>
                         <td><strong>Всего:</strong></td>
@@ -192,9 +207,63 @@ function sumHour() {
     </div>
 </div>                            
 <script>
+    
+    function showHighlight(el) {
+        console.log($(el));
+        if ($(el).val() != -1) {
+            $(el).removeClass("glowing-border");
+            $('.bootstrap-select').removeClass("glowing-border");
+        } else {
+            $(el).addClass("glowing-border");
+            $('.bootstrap-select').addClass("glowing-border");
+        }
+    }
     $( document ).ready(function() {
         $('#li2').removeClass('active');
         $('#li1').addClass('active');
+        $('select').change(function() {
+            showHighlight($(this));
+        });
+        $.each($('select'), function(index, value) {
+            showHighlight(value);
+        });
+        
+    });
+    
+    function getValidation() {
+        return $('#subject_validation_'+$('#subject_select').val()).html();
+    }
+    
+    function getSubgroupsCount() {
+        return $('#group_subgroups_'+$('#group_select').val()).html();
+    }
+    
+    function fillSubgroups() {
+        if ($('#group_select').val() != -1 && 
+                ($('#teacher_select').val() != -1)) {
+            var str = "";
+            for (i =0; i < getSubgroupsCount();i++) {
+                str += "Подгруппа " + (i+1) + "; " + $('#teacher_select option:selected').text()+"\n";
+            }
+            $('#teacher_lect1').val(str);    
+            $('#teacher_lect2').val(str);    
+            $('#teacher_lab1').val(str);    
+            $('#teacher_lab2').val(str);
+            $('#teacher_prac1').val(str);    
+            $('#teacher_prac2').val(str);
+        }
+    }
+    
+    $('#group_select').change(function() {
+        fillSubgroups();
+    });
+    
+    $('#subject_select').change(function() {
+        if ($('#subject_select').val() != "-1") {
+            $('#validation').html(getValidation());
+        } else {
+            $('#validation').html("");
+        }
     });
     
     $('#teacher_select').change(function() {
@@ -204,14 +273,14 @@ function sumHour() {
             data: "get_subject_list=1&teacher_id="+this.value,
             dataType: 'text',
             success: function(data) {
-                var subjects = JSON.parse(data);
+                /*var subjects = JSON.parse(data);
                 var options = '';
                 $.each(subjects, function(index, value) {
                     options += '<option value="'+ value.id + '">' + value.name + '</option>';
                 });
                 $('#subject_select').empty();
                 $('#subject_select').append(options);
-                $('#subject_select').selectpicker('refresh');
+                $('#subject_select').selectpicker('refresh');*/
             },
             error: function(xhr, status, error){
                  alert(error);

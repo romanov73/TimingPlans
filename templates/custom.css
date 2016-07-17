@@ -15,4 +15,10 @@ td {
 .tr-input-hour {
 }
 
+.glowing-border { 
+    outline: none;
+    border-color: red;
+    box-shadow: 0 0 10px red;
+}
+
 

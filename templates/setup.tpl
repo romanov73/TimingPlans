@@ -47,7 +47,11 @@
   <div class="panel-heading">Тестовые данные</div>
     <div class="panel-body">
         <div class="row" style="margin-top:20px;">
-            <div class="col-md-12">
+            <div class="col-md-3">
+                <input id="generate_db_button" class="btn btn-info" type="button" value="Вставить тестовые данные"/>
+            </div>
+            <div class="col-md-6">
+                <h4><span id="generate_message_db" class="label label-success" style="display:none;"></span></h4>
                 
             </div>
         </div>
@@ -102,6 +106,7 @@
             }
         });
     });
+    
     $('#create_db_button').click(function() {
         $.ajax({
             url: "setup.php",
@@ -112,6 +117,33 @@
                 $('#message_db').html(data);
                 checkDBStructure();
                 $('#message_db').fadeIn( "slow", function() {
+                    // Animation complete.
+                })/*.delay( 5000 ).fadeOut( "slow", function() {
+                    // Animation complete.
+                })*/;
+            },
+            error: function(xhr, status, error){
+                 alert(error);
+            }
+        });
+    });
+    
+    $('#generate_db_button').click(function() {
+        $.ajax({
+            url: "setup.php",
+            type: "GET",
+            data: "generate_test_data=1",
+            dataType: 'text',
+            success: function(data) {
+                if (data == '&#9745  Данные сгенерированы') {
+                    $('#generate_message_db').addClass('label-success');
+                    $('#generate_message_db').removeClass('label-danger');
+                } else {
+                    $('#generate_message_db').addClass('label-danger');
+                    $('#generate_message_db').removeClass('label-success');
+                }
+                $('#generate_message_db').html(data);
+                $('#generate_message_db').fadeIn( "slow", function() {
                     // Animation complete.
                 })/*.delay( 5000 ).fadeOut( "slow", function() {
                     // Animation complete.

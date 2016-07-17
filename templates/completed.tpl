@@ -3,14 +3,10 @@
 
 <div class="tab-content">
     <div id="panel1" class="tab-pane fade in active">
-        <h4>Заполните данные</h4>
-        <div class="row">
-            <div class="col-sm-2">
-                <h4>Преподаватель:</h4>
-            </div>
-            <div class="col-sm-4">
-                
-            </div>
+        <div class="list-group">
+            {foreach from=$timing_list item=timing}
+                  <a href="#" class="list-group-item"><span class="label label-primary">{$timing->subject->name}</span> {$timing->year}/{$timing->year+1} {$timing->semester} семестр  {$timing->group->name} </a>
+            {/foreach}
         </div>
     </div>
 </div>                            

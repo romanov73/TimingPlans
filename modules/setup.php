@@ -110,6 +110,39 @@
         $db->query($sql_check);
     }
     
+    function generateTestData($db) {
+        $sql_insert = "
+            BEGIN;
+            INSERT INTO teacher(fio, \"position\", title) VALUES ('Иванов Иван Иванович', 'доцент', 'доцент');
+            INSERT INTO teacher(fio, \"position\", title) VALUES ('Петров Петр Петрович', 'доцент', 'доцент');
+            INSERT INTO teacher(fio, \"position\", title) VALUES ('Сидор Лютый Джафарович', 'ассистент', 'доцент');
+            INSERT INTO subject(name, lect_hours, pract_hours, lab_hours, validation) VALUES ('Теор Вер', 16, 32, 32, 'экзамен');
+            INSERT INTO subject(name, lect_hours, pract_hours, lab_hours, validation) VALUES ('Выч мат', 16, 32, 32, 'экзамен');
+            INSERT INTO subject(name, lect_hours, pract_hours, lab_hours, validation) VALUES ('ООП', 16, 32, 32, 'экзамен, курсовая работа');
+            INSERT INTO \"group\"(name, count_subgroups) VALUES ('ПИбд-41', 1);
+            INSERT INTO \"group\"(name, count_subgroups) VALUES ('ПИбд-31', 2);
+            INSERT INTO \"group\"(name, count_subgroups) VALUES ('ИСЭбд-31', 2);
+            INSERT INTO \"group\"(name, count_subgroups) VALUES ('ПИбд-21', 2);
+            INSERT INTO stream(subject_id) VALUES ((select id from subject limit 1 offset 2));
+            INSERT INTO group_stream(group_id, stream_id) VALUES ((select id from \"group\" limit 1 offset 1), (select id from stream limit 1));
+            INSERT INTO group_stream(group_id, stream_id) VALUES ((select id from \"group\" limit 1 offset 2), (select id from stream limit 1));
+            INSERT INTO timing_plan(
+                group_id, subject_id, teacher_id, semester, year, group_stream_id)
+            VALUES ((select id from \"group\" limit 1 offset 1),
+                    (select id from subject limit 1 offset 2),
+                    (select id from teacher limit 1),
+                    5, 2015, (select id from group_stream limit 1));
+            INSERT INTO timing_plan(
+                group_id, subject_id, teacher_id, semester, year, group_stream_id)
+            VALUES ((select id from \"group\" limit 1 offset 2),
+                    (select id from subject limit 1 offset 2),
+                    (select id from teacher limit 1),
+                    5, 2015, (select id from group_stream limit 1 offset 1));
+            commit;
+        ";
+        $db->query($sql_insert);
+    }
+    
     function checkSmartyDirectoryWritable() {
         $newFileName = SMARTY_COMPILE_DIR.'file.txt';
         if ( ! is_writable(dirname($newFileName))) {
@@ -146,6 +179,17 @@
         ob_clean();
         if (!$db->get_last_error()) {
             echo("&#9745  Структура соответствует");
+        } else {
+            echo("&#9746 " . $db->get_last_error());
+        }
+        exit();
+    }
+    
+    if ($_GET['generate_test_data']) {
+        generateTestData($db);
+        ob_clean();
+        if (!$db->get_last_error()) {
+            echo("&#9745  Данные сгенерированы");
         } else {
             echo("&#9746 " . $db->get_last_error());
         }
