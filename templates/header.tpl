@@ -1,6 +1,6 @@
-<html lang="en">
+<html>
   <head>
-    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>{$page_title}</title>
     <link href="libs/bootstrap-3.3.6-dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="libs/bootstrap-select.min.css" />
