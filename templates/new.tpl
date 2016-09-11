@@ -36,9 +36,11 @@ function isNumberInput(field, event){
 
 function sumForm() {
     var sum = 0;
+    var total_sum = 0;
     $(".lect").each(function(i) {
         sum += Number($(this).val());
     });
+    total_sum = sum;
     if (sum === 0) {
             sum = "";
     }
@@ -48,6 +50,7 @@ function sumForm() {
     $(".pract").each(function(i) {
         sum += Number($(this).val());
     });
+    total_sum += sum;
     if (sum === 0) {
             sum = "";
     }
@@ -57,15 +60,17 @@ function sumForm() {
     $(".lab").each(function(i) {
         sum += Number($(this).val());
     });
+    total_sum += sum;
     if (sum === 0) {
             sum = "";
     }
     $("#itog_lab").html(sum);
     sumHour();
+    $("#itog_final").html(total_sum);
 }
 
 function sumHour() {
-    for (i = 1; i < 19; i++) {
+    for (i = 1; i < {$weeks_count}+1; i++) {
         sum = 0;
         $(".week"+i).each(function(i) {
             sum += Number($(this).val());
@@ -141,7 +146,7 @@ function sumHour() {
                     <tr>
                         <td><strong>Форма занятий</strong></td>
                         <td><strong>Недели</strong></td>
-                            {section name=week loop=18}
+                            {section name=week loop={$weeks_count}}
                                 <td class="td-center"><strong>{$smarty.section.week.iteration}</strong></td>
                             {/section}
                         <td><strong>&nbsp;&sum;&nbsp;</strong></td>
@@ -150,7 +155,7 @@ function sumHour() {
                     <tr class="tr-input-hour">
                         <td rowspan="2"><strong>1. Лекции</strong></td>
                         <td>аудит.</td>
-                            {section name="week" loop=18}
+                            {section name="week" loop={$weeks_count}}
                                 <td class="td-input-hour"><input type="text" class="input-hour lect week{$smarty.section.week.iteration}" onkeypress="return isNumberInput(this, event);" onchange="sumForm();"></td>
                             {/section}
                         <td class="td-center" id="itog_lect">&nbsp;</td>
@@ -158,47 +163,47 @@ function sumHour() {
                     </tr>
                     <tr>
                         <td><textarea id="lection_audit" ></textarea></td>
-                        <td colspan="9" style="text-align:center;"><textarea id="teacher_lect1" style="width:100%"></textarea></td>
-                        <td colspan="10" style="text-align:center;"><textarea id="teacher_lect2" style="width:100%"></textarea></td>
+                        <td colspan="{$weeks_count/2}" style="text-align:center;"><textarea id="teacher_lect1" style="width:100%"></textarea></td>
+                        <td colspan="{$weeks_count/2+1}" style="text-align:center;"><textarea id="teacher_lect2" style="width:100%"></textarea></td>
                     </tr>
                     <tr class="tr-input-hour">
                         <td rowspan="2"><strong>2. Практ. занятия, семинары</strong></td>
                         <td>аудит.</td>
-                            {section name="week" loop=18}
+                            {section name="week" loop={$weeks_count}}
                                 <td id="" class="td-input-hour"><input type="text" class="input-hour pract week{$smarty.section.week.iteration}" onkeypress="return isNumberInput(this, event);" onchange="sumForm();"></td>
                             {/section}
                         <td class="td-center" id="itog_pract">&nbsp;</td>
                     </tr>
                     <tr>
                         <td><textarea id="lection_audit" ></textarea></td>
-                        <td colspan="9" style="text-align:center;"><textarea id="teacher_prac1" style="width:100%"></textarea></td>
-                        <td colspan="10" style="text-align:center;"><textarea id="teacher_prac2" style="width:100%"></textarea></td>
+                        <td colspan="{$weeks_count/2}" style="text-align:center;"><textarea id="teacher_prac1" style="width:100%"></textarea></td>
+                        <td colspan="{$weeks_count/2+1}" style="text-align:center;"><textarea id="teacher_prac2" style="width:100%"></textarea></td>
                     </tr>
                     <tr class="tr-input-hour">
                         <td rowspan="2"><strong>3. Лабораторные занятия</strong></td>
                         <td>аудит.</td>
-                            {section name="week" loop=18}
+                            {section name="week" loop={$weeks_count}}
                                 <td id="" class="td-input-hour"><input type="text" class="input-hour lab week{$smarty.section.week.iteration}" onkeypress="return isNumberInput(this, event);"  onchange="sumForm();"></td>
                             {/section}
                         <td class="td-center" id="itog_lab">&nbsp;</td>
                     </tr>
                     <tr>
                         <td><textarea id="lection_audit" ></textarea></td>
-                        <td colspan="9" style="text-align:center;"><textarea id="teacher_lab1" style="width:100%"></textarea></td>
-                        <td colspan="10" style="text-align:center;"><textarea id="teacher_lab2" style="width:100%"></textarea></td>
+                        <td colspan="{$weeks_count/2}" style="text-align:center;"><textarea id="teacher_lab1" style="width:100%"></textarea></td>
+                        <td colspan="{$weeks_count/2+1}" style="text-align:center;"><textarea id="teacher_lab2" style="width:100%"></textarea></td>
                     </tr>
                     <tr>
                         <td><strong>Всего:</strong></td>
                         <td>аудит.</td>
-                            {section name="itog" loop=18}
+                            {section name="itog" loop={$weeks_count}}
                                 <td class="td-center" id="itog_week{$smarty.section.itog.iteration}">&nbsp;</td>
                             {/section}
                         <td id="itog_final">&nbsp;</td>
-                        <td id="itog_final">&nbsp;</td>
+                        <td>&nbsp;</td>
                     </tr>
                     <tr>
                         <td rowspan=1>Пожелания препод-ля:</td>
-                        <td colspan="20" valign="center"><textarea id="prepod_wish" cols="20" rows="3" style="width:100%;height:50;border:solid 1px"> </textarea></td>
+                        <td colspan="{$weeks_count+2}" valign="center"><textarea id="prepod_wish" cols="20" rows="3" style="width:100%;height:50;border:solid 1px"> </textarea></td>
                         <td colspan="4" align="center" valign="center"></td>
                     </tr>
                 </table>
@@ -207,28 +212,11 @@ function sumHour() {
     </div>
 </div>                            
 <script>
-    
-    function showHighlight(el) {
-        console.log($(el));
-        if ($(el).val() != -1) {
-            $(el).removeClass("glowing-border");
-            $('.bootstrap-select').removeClass("glowing-border");
-        } else {
-            $(el).addClass("glowing-border");
-            $('.bootstrap-select').addClass("glowing-border");
-        }
-    }
+
     $( document ).ready(function() {
         $('#li2').removeClass('active');
         $('#li1').addClass('active');
-        $('select').change(function() {
-            showHighlight($(this));
-        });
-        $.each($('select'), function(index, value) {
-            showHighlight(value);
-        });
-        
-    });
+     });
     
     function getValidation() {
         return $('#subject_validation_'+$('#subject_select').val()).html();
@@ -267,6 +255,11 @@ function sumHour() {
     });
     
     $('#teacher_select').change(function() {
+        if ($('#teacher_select').val() !== '-1') {
+            $('#teacher_select').next().removeClass("glowing-border");
+        } else {
+            $('#teacher_select').next().addClass("glowing-border");
+        }
         $.ajax({
             url: "index.php",
             type: "GET",
