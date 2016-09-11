@@ -20,6 +20,7 @@
     array_push($group_list, new Group(-1, 'Выберите'));
     $group_list = array_merge($group_list, (new GroupDAO($db))->find_all());
     $smarty->assign('group_list', $group_list);
+    $smarty->assign('weeks_count', WEEKS_COUNT);
     
     $smarty->assign('page_title', 'Ввод расчасовок');
    
