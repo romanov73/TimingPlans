@@ -29,13 +29,18 @@ class TimingPlanDAO implements EntityDAO {
     }
 
     public function find_by_id($id) {
-        return $this->fetch($this->db->query("select tp.*, g.name as group_name, g.count_subgroups, t.*, s.name as subject_name, s.validation from timing_plan tp
+        return $this->fetch($this->db->query("select tp.*, g.name as group_name, g.count_subgroups, t.id as teacher_id, t.fio, t.position, t.title, s.name as subject_name, s.validation from timing_plan tp
                                                 left join \"group\" g on g.id = tp.id
                                                 left join teacher t on t.id = tp.teacher_id
                                                 left join subject s on s.id = tp.subject_id
                                                 left join group_stream gs on gs.id = tp.group_stream_id
                                                 where tp.id = %id%
                                                 order by tp.year, tp.semester, s.name", $id))[0];
+    }
+    
+    private function get_hours($timin_plan_id) {
+        return pg_fetch_all($this->db->query("SELECT week_num, hours_count, form_id
+                                 FROM hours where timing_plan_id = %id% order by week_num", $timin_plan_id));
     }
 
     public function update($entity) {
@@ -49,7 +54,8 @@ class TimingPlanDAO implements EntityDAO {
                     new Group($row['group_id'], $row['group_name']),
                     new Subject($row['subject_id'], $row['subject_name'], $row['lect_hours'],$row['lab_hours'],$row['pract_hours'],$row['validation']),
                     new Teacher($row['teacher_id'], $row['fio'], $row['position'], $row['title']),
-                    $row['semester'], $row['year'], $row['title'], null));
+                    $row['semester'], $row['year'], $row['title'],
+                    $row['wish'], $row['a_lec'], $row['a_prac'], $row['a_lab'], $row['pl1'],$row['pl2'],$row['pp1'],$row['pp2'],$row['plb1'],$row['plb2'], $this->get_hours($row['id'])));
         }
         return $timings;
     }
