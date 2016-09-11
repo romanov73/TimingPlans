@@ -14,3 +14,7 @@ define("SMARTY_DIR",  "libs/smarty/libs/");              // path to smarty
 define("SMARTY_TEMPLATE_DIR",  "templates/");      // smarty compiled tempaltes
 define("SMARTY_COMPILE_DIR",  "tmp/templates_c/");      // smarty compiled tempaltes
 define("DEBUG",  true);
+
+define("OUTPUT_FILE_NAME", "doc.docx");
+define("WEEKS_COUNT", 18);
+
