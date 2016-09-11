@@ -324,7 +324,9 @@ abstract class _MyDB {
             ///////////////////////////////////////////////////////////////////////////////
             if ($link) {
                 $this->_db_link = $link;
-                $this->select_schema(reset($this->_schemas));
+                if ($this->_schemas) {
+                    $this->select_schema(reset($this->_schemas));
+                }
                 return true;
             } else {
                 $this->_error("Unable to connect to ".(MyDB::__rdbms())." server!", E_USER_WARNING);
@@ -1353,8 +1355,10 @@ abstract class _MyDB {
             }
         }
 
-        foreach ($this->_schemas as $key => $value) {
-            $query = str_replace($this->_schema_char.$key.$this->_schema_char, $value, $query);
+        if ($this->_schemas) {
+            foreach ($this->_schemas as $key => $value) {
+                $query = str_replace($this->_schema_char.$key.$this->_schema_char, $value, $query);
+            }
         }
         return $query;
     }
