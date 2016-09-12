@@ -12,7 +12,7 @@ class TimingPlanDAO implements EntityDAO {
     }
 
     public function find_all() {
-        return $this->fetch($this->db->query("select tp.*, g.name as group_name, g.count_subgroups, t.fio, s.name as subject_name, s.validation from timing_plan tp
+        return $this->fetch($this->db->query("select tp.*, g.name as group_name, g.count_subgroups, t.fio, s.name as subject_name, s.validation from public.timing_plan tp
                                                 left join \"group\" g on g.id = tp.id
                                                 left join teacher t on t.id = tp.teacher_id
                                                 left join subject s on s.id = tp.subject_id
@@ -21,7 +21,32 @@ class TimingPlanDAO implements EntityDAO {
     }
 
     public function create($entity) {
-        echo "TODO: implement";
+        var_dump($entity->group->id);
+        $sql = "INSERT INTO public.timing_plan(
+            group_id, subject_id, teacher_id, semester, year, group_stream_id, 
+                wish, a_lec, a_prac, a_lab, pl1, pl2, pp1, pp2, plb1, plb2)
+            VALUES (%group_id%, %subject_id%, %teacher_id%, %semester%, %year%, %group_stream_id%, 
+                %wish%, %a_lec%, %a_prac%, %a_lab%, %pl1%, %pl2%, %pp1%, %pp2%, %plb1%, %plb2%);
+            ";
+        $params = array();
+        $params['group_id'] = $entity->group->id;
+        $params['subject_id'] = $entity->subject->id;
+        $params['teacher_id'] = $entity->teacher->id;
+        $params['year'] = $entity->year;
+        $params['semester'] = $entity->semester;
+        $params['group_stream_id'] = $entity->group_stream->id;
+        $params['wish'] = $entity->wish;
+        $params['a_lec'] = $entity->a_lec;
+        $params['a_prac'] = $entity->a_prac;
+        $params['a_lab'] = $entity->a_lab;
+        $params['pl1'] = $entity->pl1;
+        $params['pl2'] = $entity->pl2;
+        $params['pp1'] = $entity->pp1;
+        $params['pp2'] = $entity->pp2;
+        $params['plb1'] = $entity->plb1;
+        $params['plb2'] = $entity->plb2;
+        var_dump($params);
+        $this->db->query($sql, $params);
     }
 
     public function delete($id) {

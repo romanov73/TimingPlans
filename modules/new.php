@@ -5,7 +5,32 @@
     require_once 'classes/Teacher.class.php';
     require_once 'classes/GroupDAO.class.php';
     require_once 'classes/Group.class.php';
+    require_once 'classes/TimingPlanDAO.class.php';
+    require_once 'classes/TimingPlan.class.php';
 
+    function get_hours() {
+        return array();
+    }
+    
+    if ($_POST['save']) {
+        $tp = new TimingPlan(null, 
+                    (new GroupDao($db))->find_by_id($_POST['group_select']),
+                    (new SubjectDao($db))->find_by_id($_POST['subject_select']),
+                    (new TeacherDao($db))->find_by_id($_POST['teacher_select']),
+                    1, 2017, '',
+                    $_POST['prepod_wish'], $row['lection_audit'], 
+                    $_POST['prac_audit'], 
+                    $_POST['lab_audit'], 
+                    $_POST['teacher_lect1'],
+                    $_POST['teacher_lect2'],
+                $_POST['teacher_prac1'],
+                $_POST['teacher_prac2'],
+                $_POST['teacher_lab1'],
+                $_POST['teacher_lab1'], get_hours());
+        (new TimingPlanDAO($db))->create($tp);
+        $smarty->assign('saved', true);
+    }
+    
     $subject_list = array();
     array_push($subject_list, new Subject(-1, 'Выберите'));
     $subject_list = array_merge($subject_list, (new SubjectDAO($db))->find_all());

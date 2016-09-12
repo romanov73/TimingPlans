@@ -23,3 +23,4 @@
     );
     MyDB::config("system", $connect_data);
     $db = MyDB::get_instance();
+    $db->select_schema("public");

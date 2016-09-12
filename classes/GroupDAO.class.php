@@ -21,7 +21,7 @@ class GroupDAO implements EntityDAO {
     }
 
     public function find_by_id($id) {
-        echo "TODO: implement";
+        return $this->fetch($this->db->query("select * from \"group\" where id = %id% order by name", $id))[0];
     }
 
     public function update($entity) {
