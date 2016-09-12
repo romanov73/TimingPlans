@@ -21,7 +21,14 @@ class TimingPlanDAO implements EntityDAO {
     }
 
     public function create($entity) {
-        var_dump($entity->group->id);
+        $this->db->begin();
+        $sql = "INSERT INTO public.stream (subject_id) values(%subject_id%)";
+        $this->db->query($sql, $entity->subject->id);
+        $stream_id = $this->db->insert_id('stream');
+        $sql = "INSERT INTO public.group_stream (group_id, stream_id) values(%group_id%, %stream_id%)";
+        $this->db->query($sql, array('group_id' => $entity->group->id, 'stream_id' => $stream_id));
+        $group_stream_id = $this->db->insert_id('group_stream');
+        
         $sql = "INSERT INTO public.timing_plan(
             group_id, subject_id, teacher_id, semester, year, group_stream_id, 
                 wish, a_lec, a_prac, a_lab, pl1, pl2, pp1, pp2, plb1, plb2)
@@ -34,7 +41,7 @@ class TimingPlanDAO implements EntityDAO {
         $params['teacher_id'] = $entity->teacher->id;
         $params['year'] = $entity->year;
         $params['semester'] = $entity->semester;
-        $params['group_stream_id'] = $entity->group_stream->id;
+        $params['group_stream_id'] = $group_stream_id;
         $params['wish'] = $entity->wish;
         $params['a_lec'] = $entity->a_lec;
         $params['a_prac'] = $entity->a_prac;
@@ -45,8 +52,11 @@ class TimingPlanDAO implements EntityDAO {
         $params['pp2'] = $entity->pp2;
         $params['plb1'] = $entity->plb1;
         $params['plb2'] = $entity->plb2;
-        var_dump($params);
         $this->db->query($sql, $params);
+        $id = $this->db->insert_id('timing_plan');
+        
+        $this->db->commit();
+        return $id;
     }
 
     public function delete($id) {
@@ -55,7 +65,7 @@ class TimingPlanDAO implements EntityDAO {
 
     public function find_by_id($id) {
         return $this->fetch($this->db->query("select tp.*, g.name as group_name, g.count_subgroups, t.id as teacher_id, t.fio, t.position, t.title, s.name as subject_name, s.validation from timing_plan tp
-                                                left join \"group\" g on g.id = tp.id
+                                                left join \"group\" g on g.id = tp.group_id
                                                 left join teacher t on t.id = tp.teacher_id
                                                 left join subject s on s.id = tp.subject_id
                                                 left join group_stream gs on gs.id = tp.group_stream_id
@@ -79,7 +89,7 @@ class TimingPlanDAO implements EntityDAO {
                     new Group($row['group_id'], $row['group_name']),
                     new Subject($row['subject_id'], $row['subject_name'], $row['lect_hours'],$row['lab_hours'],$row['pract_hours'],$row['validation']),
                     new Teacher($row['teacher_id'], $row['fio'], $row['position'], $row['title']),
-                    $row['semester'], $row['year'], $row['title'],
+                    $row['semester'], $row['year'], $row['group_name'],
                     $row['wish'], $row['a_lec'], $row['a_prac'], $row['a_lab'], $row['pl1'],$row['pl2'],$row['pp1'],$row['pp2'],$row['plb1'],$row['plb2'], $this->get_hours($row['id'])));
         }
         return $timings;

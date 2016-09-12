@@ -142,6 +142,43 @@ function sumHour() {
             </div>
         </div>
         <div class="row" style="margin-top:20px;">
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h5>Семестр:</h5>
+                    </div>
+                    <div class="col-md-3">
+                        <select name="semestr_select" id="semestr_select" class="selectpicker" data-live-search="true" >
+                            {for $sem=1 to 8}
+                                <option value='{$sem}'>{$sem}</option>
+                            {/for}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-3">
+                        <h5>Год:</h5>
+                    </div>
+                    <div class="col-md-3">
+                        <select name="year_select" id="year_select" class="selectpicker" data-live-search="true" >
+                            {assign var=thisyear value=$smarty.now|date_format:"%Y"}
+                            {for $year=0 to 5}
+                                <option value='{$thisyear - $year}'>{$thisyear - $year} / {$thisyear - $year+1}</option>
+                            {/for}
+                        </select>
+                            {foreach from=$subject_list item=subject}
+                                <div style="display:none;" id='subject_lect_hours_{$subject->id}'>{$subject->lection_hours}</div>
+                                <div style="display:none;" id='subject_pract_hours_{$subject->id}'>{$subject->practic_hours}</div>
+                                <div style="display:none;" id='subject_lab_hours_{$subject->id}'>{$subject->labs_hours}</div>
+                                <div style="display:none;" id='subject_validation_{$subject->id}'>{$subject->validation}</div>
+                            {/foreach}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-top:20px;">
             <div class="col-md-12">
                 <table border="1" width="100%">
                     <tr>

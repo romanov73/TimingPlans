@@ -26,7 +26,6 @@ $PHPWord = new PHPWord();
 $document = $PHPWord->loadTemplate('modules/template.docx');
 
 $timing = (new TimingPlanDAO($db))->find_by_id($_GET['timing_plan_id']);
-//print_r($timing->group->name);
 $document->setValue('subject_name', $timing->subject->name);
 $document->setValue('validation', $timing->subject->validation);
 $document->setValue('group_name', $timing->group->name);
@@ -57,6 +56,7 @@ for ($i=0; $i<WEEKS_COUNT+1; $i++) {
     $document->setValue("ws$i", $ws[$i]);
 }
 $document->setValue('wls', $sum_lec);
+$document->setValue('stream', $timing->group_stream);
 $document->setValue('wps', $sum_pr);
 $document->setValue('wlbs', $sum_lab);
 $document->setValue('wss', $sum_lec + $sum_lab + $sum_pr);
