@@ -9,7 +9,19 @@
     require_once 'classes/TimingPlan.class.php';
 
     function get_hours() {
-        return array();
+        $hours = array();
+        foreach ($_POST as $k => $v) {
+            if ((strpos($k, 'hl') !== false) && (strpos($k, 'hlb') === false)) {
+                $hours['lection'][mb_substr($k, strpos($k, 'hl')+2, mb_strlen($k, 'utf-8'))] = $v;
+            }
+            if (strpos($k, 'hlb') !== false) {
+                $hours['labs'][mb_substr($k, strpos($k, 'hlb')+3, mb_strlen($k, 'utf-8'))] = $v;
+            }
+            if (strpos($k, 'hp') !== false) {
+                $hours['prac'][mb_substr($k, strpos($k, 'hp')+2, mb_strlen($k, 'utf-8'))] = $v;
+            }
+        }
+        return $hours;
     }
     
     if ($_POST['save']) {

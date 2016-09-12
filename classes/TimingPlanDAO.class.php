@@ -55,6 +55,18 @@ class TimingPlanDAO implements EntityDAO {
         $this->db->query($sql, $params);
         $id = $this->db->insert_id('timing_plan');
         
+        foreach ($entity->hours as $form => $hours) {
+            $form_id = 1;
+            if ($form == "labs") {
+                $form_id = 3;
+            } else if ($form == "prac") {
+                $form_id = 2;
+            }
+            foreach ($hours as $week => $hour) {    
+                $this->db->query("insert into hours (week_num, hours_count, form_id, timing_plan_id) values (%week_num%, %hours_count%, %form_id%, %timing_plan_id%)", array("timing_plan_id" => $id, 'week_num' => $week, 'hours_count'=> $hour, 'form_id' =>$form_id));        
+            }
+        }
+        
         $this->db->commit();
         return $id;
     }
