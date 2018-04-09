@@ -12,13 +12,13 @@
         $hours = array();
         foreach ($_POST as $k => $v) {
             if ((strpos($k, 'hl') !== false) && (strpos($k, 'hlb') === false)) {
-                $hours['lection'][mb_substr($k, strpos($k, 'hl')+2, mb_strlen($k, 'utf-8'))] = $v;
+                $hours['lection'][substr($k, strpos($k, 'hl')+2, strlen($k))] = $v;
             }
             if (strpos($k, 'hlb') !== false) {
-                $hours['labs'][mb_substr($k, strpos($k, 'hlb')+3, mb_strlen($k, 'utf-8'))] = $v;
+                $hours['labs'][substr($k, strpos($k, 'hlb')+3, strlen($k))] = $v;
             }
             if (strpos($k, 'hp') !== false) {
-                $hours['prac'][mb_substr($k, strpos($k, 'hp')+2, mb_strlen($k, 'utf-8'))] = $v;
+                $hours['prac'][substr($k, strpos($k, 'hp')+2, strlen($k))] = $v;
             }
         }
         return $hours;

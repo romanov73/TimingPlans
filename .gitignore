@@ -1,2 +1,4 @@
 nbproject
 /tmp/templates_c/*.php
+.idea
+*.iml
