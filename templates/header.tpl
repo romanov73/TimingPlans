@@ -11,7 +11,7 @@
         <script src="libs/bootstrap.min.js"></script>
         <script src="libs/bootstrap-select.min.js"></script>
         
-<div class="panel panel-default" style="width:90%; margin-left: auto; margin-right: auto;">
+<div class="panel panel-default" style="width:60%; margin-left: auto; margin-right: auto;">
   <div class="panel-heading">{$page_title}</div>
   <div class="panel-body">
  

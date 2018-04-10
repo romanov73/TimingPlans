@@ -4,7 +4,7 @@
 /////////////////////////////////////////////////////////////////////
 define("DB_SYSTEM_HOST", "localhost");      // DB host
 define("DB_SYSTEM_USER", "postgres");       // system DB user
-define("DB_SYSTEM_PASS", "");               // system DB user password
+define("DB_SYSTEM_PASS", "postgres");       // system DB user password
 define("DB_SYSTEM_DBNAME", "timing-plans"); // DB name
 
 /////////////////////////////////////////////////////////////////////
