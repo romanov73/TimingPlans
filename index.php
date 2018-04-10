@@ -5,7 +5,8 @@
     //routing
     if (isset($_GET['list'])) {
         include 'modules/list.php';
-    } else {
+    } else if (isset($_GET['task_id'])) {
         include 'modules/edit.php';
-
+    } else {
+        include 'modules/list.php';
     }
